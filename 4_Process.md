@@ -170,3 +170,21 @@ any(bikeshare_df_v2$ride_length < 0) # checking for negative values
 ```
 ## [1] FALSE
 ```
+## Prepare for Export
+After cleaning, a CSV file will be exported to preserve the clean data and another file will be created for use in Tableau.
+```R
+write_csv(bikeshare_df_v2, "2022-04-26_cyclistic_clean_data.csv")
+```
+Since the data frame containing the clean data is too large to upload to Tableau Public (file limit of 1 GB) a subset of the data frame will be created and exported.
+```R
+# selection of desired columns to keep for export
+myvars <- c("ride_id", "rideable_type", "member_casual", "date", "month", 
+            "day", "year", "day_of_week", "ride_length", "start_station_name", 
+            "end_station_name")
+
+# store selected columns in a data frame
+bikeshare_subset <- bikeshare_df_v2[myvars]
+
+# write subset data frame to CSV file
+write_csv(bikeshare_subset, "2022-04-30_cyclistic_subset.csv")
+```
